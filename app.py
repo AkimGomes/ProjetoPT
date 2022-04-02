@@ -75,6 +75,29 @@ def registra_usuario():
     return render_template('cadastro_de_usuario.html')
 
 
+@app.route('/informacoes-editaveis-do-usuario', methods=['GET', 'POST'])
+@login_required
+def edita_info_do_usuario():
+    if request.method == 'POST':
+        usuario = Usuario(request.form['nome'],
+                          request.form['email'],
+                          request.form['cpf'],
+                          request.form['pis'])
+        usuario_dao.altera_usuario(usuario)
+        endereco = Endereco(usuario.id,
+                            request.form['pais'],
+                            request.form['estado'],
+                            request.form['municipio'],
+                            request.form['cep'],
+                            request.form['rua'],
+                            request.form['numero'],
+                            request.form['complemento'])
+        endereco_dao.altera_endereco(endereco)
+        flash('Alterações feitas com sucesso!')
+        return redirect(url_for('mostra_menu_usuario'))
+    return render_template('informacoes_do_usuario_logado.html')
+
+
 @app.route('/desloga-usuario')
 @login_required
 def desloga_usuario():
@@ -96,12 +119,6 @@ def deleta_usuario():
 @login_required
 def mostra_menu_usuario():
     return render_template('usuario_logado.html')
-
-
-@app.route('/informacoes-editaveis-do-usuario')
-@login_required
-def edita_info_do_usuario():
-    return render_template('informacoes_do_usuario_logado.html')
 
 
 app.run(debug=True)
