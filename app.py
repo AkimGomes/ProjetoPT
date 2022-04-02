@@ -81,6 +81,7 @@ def edita_info_do_usuario():
     if request.method == 'POST':
         usuario = Usuario(request.form['nome'],
                           request.form['email'],
+                          generate_password_hash(request.form['senha']),
                           request.form['cpf'],
                           request.form['pis'])
         usuario_dao.altera_usuario(usuario.id, usuario)
