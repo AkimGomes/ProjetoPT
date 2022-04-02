@@ -83,7 +83,7 @@ def edita_info_do_usuario():
                           request.form['email'],
                           request.form['cpf'],
                           request.form['pis'])
-        usuario_dao.altera_usuario(usuario)
+        usuario_dao.altera_usuario(usuario.id, usuario)
         endereco = Endereco(usuario.id,
                             request.form['pais'],
                             request.form['estado'],
@@ -92,7 +92,7 @@ def edita_info_do_usuario():
                             request.form['rua'],
                             request.form['numero'],
                             request.form['complemento'])
-        endereco_dao.altera_endereco(endereco)
+        endereco_dao.altera_endereco(endereco.endereco_id, endereco)
         flash('Alterações feitas com sucesso!')
         return redirect(url_for('mostra_menu_usuario'))
     return render_template('informacoes_do_usuario_logado.html')
