@@ -69,7 +69,7 @@ def registra_usuario():
 
 @app.route('/desloga-usuario')
 @login_required
-def deloga_usuario():
+def desloga_usuario():
     logout_user()
     flash('Usuário deslogado com sucesso!', 'success')
     return redirect(url_for('loga_usuario'))
