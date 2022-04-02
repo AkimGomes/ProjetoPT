@@ -92,7 +92,13 @@ def mostra_menu_usuario():
 
 @app.route('/informacoes-do-usuario')
 @login_required
-def monstra_info_do_usuario():
+def mostra_info_do_usuario():
+    return render_template('informacoes_do_usuario_logado.html')
+
+
+@app.route('/informacoes-editaveis-do-usuario')
+@login_required
+def edita_info_do_usuario():
     return render_template('')
 
 
