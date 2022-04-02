@@ -90,16 +90,10 @@ def mostra_menu_usuario():
     return render_template('usuario_logado.html')
 
 
-@app.route('/informacoes-do-usuario')
-@login_required
-def mostra_info_do_usuario():
-    return render_template('informacoes_do_usuario_logado.html')
-
-
 @app.route('/informacoes-editaveis-do-usuario')
 @login_required
 def edita_info_do_usuario():
-    return render_template('')
+    return render_template('informacoes_do_usuario_logado.html')
 
 
 app.run(debug=True)
