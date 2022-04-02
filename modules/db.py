@@ -50,7 +50,7 @@ def is_anonymous(self):
 
 @property
 def get_id(self):
-    return str(self.usuario_id)
+    return (self.usuario_id)
 
 
 class Endereco(Base):
