@@ -32,35 +32,36 @@ def loga_usuario():
 @app.route('/registra-usuario', methods=['GET', 'POST'])
 def registra_usuario():
     if request.method == 'POST':
-        pis = #query com o pis da requisicao  request.form['pis']
-        cpf =
-        email =
+        pis = usuario_dao.pega_usuario_pis(request.form['pis'])
+        cpf = usuario_dao.pega_usuario_cpf(request.form['cpf'])
+        email = usuario_dao.pega_usuario_email(request.form['email'])
         if pis or cpf or email:
-            nao pode porra
-        # try:
-        usuario = Usuario(request.form['nome'],
-                          request.form['email'],
-                          generate_password_hash(request.form['senha']),
-                          request.form['cpf'],
-                          request.form['pis'])
-        usuario_dao.registra_usuario(usuario)
-        endereco = Endereco(usuario.usuario_id,
-                            request.form['pais'],
-                            request.form['estado'],
-                            request.form['municipio'],
-                            request.form['cep'],
-                            request.form['rua'],
-                            request.form['numero'],
-                            request.form['complemento'])
-        endereco_dao.registra_endereco(endereco)
-        flash('Usuário cadastrado com sucesso!', 'success')
-        return redirect(url_for('loga_usuario'))
-        # except IntegrityError:
-        #     flash('Usuário já cadastrado!', 'error')
-        #     return redirect(url_for('registra_usuario'))
-        # except DataError:
-        #     flash('Caracteres excedidos!', 'error')
-        #     return redirect(url_for('registra_usuario'))
+            flash('Dados inválidos. CPF, PIS ou Email já cadastrados!')
+        else:
+            # try:
+            usuario = Usuario(request.form['nome'],
+                              request.form['email'],
+                              generate_password_hash(request.form['senha']),
+                              request.form['cpf'],
+                              request.form['pis'])
+            usuario_dao.registra_usuario(usuario)
+            endereco = Endereco(usuario.usuario_id,
+                                request.form['pais'],
+                                request.form['estado'],
+                                request.form['municipio'],
+                                request.form['cep'],
+                                request.form['rua'],
+                                request.form['numero'],
+                                request.form['complemento'])
+            endereco_dao.registra_endereco(endereco)
+            flash('Usuário cadastrado com sucesso!', 'success')
+            return redirect(url_for('loga_usuario'))
+            # except IntegrityError:
+            #     flash('Usuário já cadastrado!', 'error')
+            #     return redirect(url_for('registra_usuario'))
+            # except DataError:
+            #     flash('Caracteres excedidos!', 'error')
+            #     return redirect(url_for('registra_usuario'))
     return render_template('cadastro_de_usuario.html')
 
 
