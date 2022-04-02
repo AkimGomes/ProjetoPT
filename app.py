@@ -54,7 +54,7 @@ def registra_usuario():
                               request.form['cpf'],
                               request.form['pis'])
             usuario_dao.registra_usuario(usuario)
-            endereco = Endereco(usuario.usuario_id,
+            endereco = Endereco(usuario.id,
                                 request.form['pais'],
                                 request.form['estado'],
                                 request.form['municipio'],
