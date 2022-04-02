@@ -9,8 +9,16 @@ class UsuarioDAO:
         usuario_id = self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).first()
         return usuario_id
 
-    def pega_usuario_login(self, usuario):
+    def pega_usuario_login_email(self, usuario):
         usuario = self._db_conn.query(Usuario).filter(Usuario.email_do_usuario == usuario).first()
+        return usuario
+
+    def pega_usuario_login_cpf(self, usuario):
+        usuario = self._db_conn.query(Usuario).filter(Usuario.cpf_do_usuario == usuario).first()
+        return usuario
+
+    def pega_usuario_login_pis(self, usuario):
+        usuario = self._db_conn.query(Usuario).filter(Usuario.pis_do_usuario == usuario).first()
         return usuario
 
     def pega_usuario_email(self, usuario_email):
