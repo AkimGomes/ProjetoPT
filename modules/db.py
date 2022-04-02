@@ -16,7 +16,7 @@ Base.query = db_session.query_property()
 
 class Usuario(Base, UserMixin):
     __tablename__ = 'Usuario'
-    usuario_id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nome_do_usuario = Column(String(26), nullable=False)
     email_do_usuario = Column(String(64), nullable=False, unique=True)
     senha_do_usuario = Column(String(256), nullable=False)
@@ -50,13 +50,13 @@ def is_anonymous(self):
 
 @property
 def get_id(self):
-    return (self.usuario_id)
+    return self.id
 
 
 class Endereco(Base):
     __tablename__ = 'Endereco'
     endereco_id = Column(Integer, primary_key=True, autoincrement=True)
-    fk_id_usuario = Column(Integer, ForeignKey('Usuario.usuario_id'))
+    fk_id_usuario = Column(Integer, ForeignKey('Usuario.id'))
     pais_do_usuario = Column(String(8), nullable=False)
     estado_do_usuario = Column(String(32), nullable=False)
     municipio_do_usuario = Column(String(64), nullable=False)
