@@ -47,7 +47,6 @@ def registra_usuario():
         if pis or cpf or email:
             flash('Dados inválidos. CPF, PIS ou Email já cadastrados!', 'error')
         else:
-            # try:
             usuario = Usuario(request.form['nome'],
                               request.form['email'],
                               generate_password_hash(request.form['senha']),
@@ -65,12 +64,6 @@ def registra_usuario():
             endereco_dao.registra_endereco(endereco)
             flash('Usuário cadastrado com sucesso!', 'success')
             return redirect(url_for('loga_usuario'))
-            # except IntegrityError:
-            #     flash('Usuário já cadastrado!', 'error')
-            #     return redirect(url_for('registra_usuario'))
-            # except DataError:
-            #     flash('Caracteres excedidos!', 'error')
-            #     return redirect(url_for('registra_usuario'))
     return render_template('cadastro_de_usuario.html')
 
 
@@ -85,8 +78,8 @@ def deloga_usuario():
 @app.route('/deleta-usuario')
 @login_required
 def deleta_usuario():
-    usuario_dao.deleta_usuario(request.args.get(''))
-    endereco_dao.deleta_endereco(request.args.get(''))
+    usuario_dao.deleta_usuario(request.args.get('id'))
+    endereco_dao.deleta_endereco(request.args.get('id'))
     flash('Usuário removido com sucesso!', 'success')
     return redirect(url_for('loga_usuario'))
 
@@ -95,6 +88,12 @@ def deleta_usuario():
 @login_required
 def mostra_menu_usuario():
     return render_template('usuario_logado.html')
+
+
+@app.route('/informacoes-do-usuario')
+@login_required
+def monstra_info_do_usuario():
+    return render_template('')
 
 
 app.run(debug=True)
