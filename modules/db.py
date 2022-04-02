@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, Column, String, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, backref
 
-engine = create_engine('mysql+pymysql://root:password@localhost:3306/ProjetoTPT', echo=True)
+engine = create_engine('mysql+pymysql://root:password@localhost:3306/ProjetoPT', echo=True)
 
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
