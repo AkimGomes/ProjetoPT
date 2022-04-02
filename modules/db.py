@@ -20,8 +20,8 @@ class Usuario(Base, UserMixin):
     nome_do_usuario = Column(String(26), nullable=False)
     email_do_usuario = Column(String(64), nullable=False, unique=True)
     senha_do_usuario = Column(String(256), nullable=False)
-    cpf_do_usuario = Column(String(12), nullable=False, unique=True)
-    pis_do_usuario = Column(String(12), nullable=False, unique=True)
+    cpf_do_usuario = Column(String(14), nullable=False, unique=True)
+    pis_do_usuario = Column(String(14), nullable=False, unique=True)
 
     endereco_usuario = relationship('Endereco', backref=backref('Usuario'))
 
