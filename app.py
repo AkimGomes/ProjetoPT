@@ -27,7 +27,7 @@ def load_user(usuario_id):
 @app.route('/inicio', methods=['GET', 'POST'])
 def loga_usuario():
     if request.method == 'POST':
-        usuario = usuario_dao.pega_usuario_login(request.form['login'])
+        usuario = usuario_dao.pega_usuario_email(request.form['login'])
         senha = request.form['password']
         if usuario:
             if check_password_hash(usuario.senha_do_usuario, senha):
