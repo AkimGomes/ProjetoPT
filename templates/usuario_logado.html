@@ -1,13 +1,18 @@
-{% extends "template_geral.html" %}
-
-{% block title %}Home do Usuário{% endblock %}
-
-{% block conteudo %}
-
-        <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Menu do Usuário</title>
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/css/app.css">
+    </head>
+    <header>
         <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario') }}">Editar Informações</a>
         <a class="btn btn-danger" href="{{ url_for('desloga_usuario') }}">Sair</a>
         <a class="btn btn-success" href="{{ url_for('deleta_usuario') }}">Deletar</a>
+        <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
+
+    </header>
 
 
-{% endblock %}
