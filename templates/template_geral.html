@@ -8,11 +8,6 @@
         <link rel="stylesheet" href="static/css/app.css">
     </head>
     <body>
-        <header>
-            <div>
-                <h1>Sisteminha</h1>
-            </div>
-        </header>
         <div class="container">
             {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -35,7 +30,7 @@
             {% endwith %}
 
         {% block conteudo %}{% endblock %}
-      <script type="text/javascript" src="static/js/app.js"></script>
-      </div>
+        <script type="text/javascript" src="static/js/app.js"></script>
+        </div>
     </body>
 </html>
