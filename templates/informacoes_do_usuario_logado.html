@@ -13,11 +13,14 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control" value="{{ current_user.email_do_usuario }}" required>
 
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" minlength="4" maxlength="25" size="25" class="form-control" required>
+
                     <label for="cpf">CPF</label>
                     <input oninput="mascara(this)" type="text" id="cpf" name="cpf" class="form control" value="{{ current_user.cpf_do_usuario }}" min=1 required>
 
                     <label for="pis">PIS</label>
-                    <input type="text" id="pis" name="pis" class="form-control" value="{{ current_user.pis_do_usuario }}" min=1 required>
+                    <input type="text" id="pis" name="pis" class="form-control"  min=1 required>
 
             <fieldset>
                 <div class="form-group">
@@ -60,19 +63,19 @@
                     </select>
 
                     <label for="municipio">Município</label>
-                    <input type="text" id="municipio" name="municipio" class="form-control" value="{{ current_user.municipio_do_usuario }}" required>
+                    <input type="text" id="municipio" name="municipio" class="form-control" required>
 
                     <label for="cep">CEP</label>
-                    <input type="text" id="cep" name="cep" class="form-control" value="{{ current_user.cep_do_usuario }}" required>
+                    <input type="text" id="cep" name="cep" class="form-control" required>
 
                     <label for="rua">Rua</label>
-                    <input type="text" id="rua" name="rua" class="form-control" value="{{ current_user.rua_do_usuario }}" required>
+                    <input type="text" id="rua" name="rua" class="form-control" required>
 
                     <label for="numero">Número</label>
-                    <input type="number" id="numero" name="numero" class="form-control" value="{{ current_user.numero_da_rua }}" min="1" required>
+                    <input type="number" id="numero" name="numero" class="form-control" min="1" required>
 
                     <label for="complemento">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" class="form-control" value="{{ current_user.complemento }}" required>
+                    <input type="text" id="complemento" name="complemento" class="form-control" required>
                 </div>
             </fieldset>
                 </div>
