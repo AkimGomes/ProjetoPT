@@ -6,7 +6,7 @@ class UsuarioDAO:
         self._db_conn = db_conn
 
     def pega_usuario_id(self, usuario_id):
-        usuario_id = self._db_conn.query(Usuario).filter(Usuario.usuario_id == usuario_id).first()
+        usuario_id = self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).first()
         return usuario_id
 
     def pega_usuario_login(self, usuario):
