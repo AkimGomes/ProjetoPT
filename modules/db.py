@@ -48,6 +48,11 @@ def is_anonymous(self):
     return False
 
 
+@property
+def get_id(self):
+    return str(self.usuario_id)
+
+
 class Endereco(Base):
     __tablename__ = 'Endereco'
     endereco_id = Column(Integer, primary_key=True, autoincrement=True)
