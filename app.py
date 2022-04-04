@@ -75,7 +75,7 @@ def registra_usuario():
     return render_template('cadastro_de_usuario.html')
 
 
-@app.route('/informacoes-editaveis-do-usuario', methods=['POST', ])
+@app.route('/informacoes-editaveis-do-usuario', methods=['GET', 'POST'])
 @login_required
 def edita_info_do_usuario():
     if request.method == 'POST':
