@@ -27,19 +27,31 @@ def loga_usuario():
         usuario_cpf = usuario_dao.pega_usuario_login_cpf(request.form['login'])
         usuario_pis = usuario_dao.pega_usuario_login_pis(request.form['login'])
         senha = request.form['password']
-        if usuario and check_password_hash(usuario.senha_do_usuario, senha):
+        if _verifica_email_e_senha_do_usuario(usuario, senha):
             login_user(usuario)
             return redirect(url_for('mostra_menu_usuario'))
-        if usuario_cpf and check_password_hash(usuario_cpf.senha_do_usuario, senha):
+        if _verifica_cpf_e_senha_do_usuario(usuario_cpf, senha):
             login_user(usuario_cpf)
             return redirect(url_for('mostra_menu_usuario'))
-        if usuario_pis and check_password_hash(usuario_pis.senha_do_usuario, senha):
+        if _verifica_pis_e_senha_do_usuario(usuario_pis, senha):
             login_user(usuario_pis)
             return redirect(url_for('mostra_menu_usuario'))
         else:
-            flash('Usuário ou senha inválidos!', 'error')
+            flash('Usuário ou senha inválidos!(CPF=000.000.000-00)', 'error')
             return redirect(url_for('loga_usuario'))
     return render_template('inicio.html')
+
+
+def _verifica_email_e_senha_do_usuario(usuario, senha):
+    return usuario and check_password_hash(usuario.senha_do_usuario, senha)
+
+
+def _verifica_cpf_e_senha_do_usuario(usuario, senha):
+    return usuario and check_password_hash(usuario.senha_do_usuario, senha)
+
+
+def _verifica_pis_e_senha_do_usuario(usuario, senha):
+    return usuario and check_password_hash(usuario.senha_do_usuario, senha)
 
 
 @app.route('/registra-usuario', methods=['GET', 'POST'])
