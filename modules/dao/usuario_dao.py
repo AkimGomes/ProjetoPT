@@ -39,7 +39,6 @@ class UsuarioDAO:
             self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).update({
                 Usuario.nome_do_usuario: novas_info_usuario.nome_do_usuario,
                 Usuario.email_do_usuario: novas_info_usuario.email_do_usuario,
-                Usuario.senha_do_usuario: novas_info_usuario.senha_do_usuario,
                 Usuario.cpf_do_usuario: novas_info_usuario.cpf_do_usuario,
                 Usuario.pis_do_usuario: novas_info_usuario.pis_do_usuario,
                 Usuario.pais_do_usuario: novas_info_usuario.pais_do_usuario,
