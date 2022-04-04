@@ -8,9 +8,10 @@
         <link rel="stylesheet" href="static/css/app.css">
     </head>
     <header>
-        <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario') }}">Editar Informações</a>
+        <h1>PROJETIN</h1>
+        <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', id=current_user.id) }}">Editar Informações</a>
         <a class="btn btn-danger" href="{{ url_for('desloga_usuario') }}">Sair</a>
-        <a class="btn btn-success" href="{{ url_for('deleta_usuario') }}">Deletar</a>
+        <a class="btn btn-success" href="{{ url_for('deleta_usuario', id=current_user.id) }}">Deletar</a>
         <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
     </header>
     <body>
@@ -36,6 +37,7 @@
             {% endwith %}
 
         {% block conteudo %}{% endblock %}
+
         <script type="text/javascript" src="static/js/jquery.js"></script>
         <script type="text/javascript" src="static/js/app.js"></script>
         </div>
