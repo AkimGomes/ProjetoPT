@@ -60,7 +60,7 @@ class Endereco(Base):
     pais_do_usuario = Column(String(8), nullable=False)
     estado_do_usuario = Column(String(32), nullable=False)
     municipio_do_usuario = Column(String(64), nullable=False)
-    cep_do_usuario = Column(Integer, nullable=False)
+    cep_do_usuario = Column(String(9), nullable=False)
     rua_do_usuario = Column(String(64), nullable=False)
     numero_da_rua = Column(Integer, nullable=False)
     complemento = Column(String(64), nullable=False)
