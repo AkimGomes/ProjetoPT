@@ -8,11 +8,9 @@
         <link rel="stylesheet" href="static/css/app.css">
     </head>
     <header>
-        <a class="btn btn-primary" href="{{ url_for('atualiza_usuario', id=endereco.endereco_id,
-         pais=endereco.pais_do_usuario, estado=endereco.estado_do_usuario, municipio=endereco.municipio_do_usuario,
-         cep=endereco.cep_do_usuario, rua=endereco.rua_do_usuario, numero=endereco.numero_da_rua, complemento=endereco.complemento) }}">Editar Informações</a>
+        <a class="btn btn-primary" href="{{ url_for('atualiza_usuario') }}">Editar Informações</a>
         <a class="btn btn-danger" href="{{ url_for('desloga_usuario') }}">Sair</a>
-        <a class="btn btn-success" href="{{ url_for('deleta_usuario', id=endereco.endereco_id) }}">Deletar</a>
+        <a class="btn btn-success" href="{{ url_for('deleta_usuario') }}">Deletar</a>
         <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
 
     </header>
