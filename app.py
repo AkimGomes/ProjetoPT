@@ -75,7 +75,7 @@ def registra_usuario():
     return render_template('cadastro_de_usuario.html')
 
 
-@app.route('/informacoes-editaveis-do-usuario', methods=['GET', 'POST'])
+@app.route('/informacoes-editaveis-do-usuario', methods=['POST', ])
 @login_required
 def edita_info_do_usuario():
     if request.method == 'POST':
@@ -84,7 +84,7 @@ def edita_info_do_usuario():
                           generate_password_hash(request.form['senha']),
                           request.form['cpf'],
                           request.form['pis'])
-        usuario_dao.altera_usuario(usuario.id, usuario)
+        usuario_dao.altera_usuario(request.args.get('id'), usuario)
         endereco = Endereco(usuario.id,
                             request.form['pais'],
                             request.form['estado'],
