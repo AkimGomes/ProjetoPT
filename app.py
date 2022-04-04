@@ -85,8 +85,8 @@ def edita_info_do_usuario():
                           request.form['rua'],
                           request.form['numero'],
                           request.form['complemento'])
-        usuario_dao.altera_usuario(usuario.id, usuario)
-        flash('Alterações feitas com sucesso!')
+        usuario_dao.altera_usuario(request.args.get('id'), usuario)
+        flash('Alterações feitas com sucesso!', 'success')
         return redirect(url_for('mostra_menu_usuario'))
     return render_template('informacoes_do_usuario_logado.html')
 
