@@ -23,7 +23,7 @@ class Usuario(Base, UserMixin):
     cpf_do_usuario = Column(String(14), nullable=False, unique=True)
     pis_do_usuario = Column(String(14), nullable=False, unique=True)
 
-    endereco_usuario = relationship('Endereco', backref=backref('Usuario'))
+    endereco_usuario = relationship('Endereco', backref=backref('Usuario'), cascade='all, delete', passive_deletes=True)
 
     def __init__(self, nome_do_usuario, email_do_usuario, senha_do_usuario, cpf_do_usuario, pis_do_usuario):
         self.nome_do_usuario = nome_do_usuario
