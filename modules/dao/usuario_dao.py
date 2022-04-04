@@ -5,6 +5,10 @@ class UsuarioDAO:
     def __init__(self, db_conn):
         self._db_conn = db_conn
 
+    def retorna_dados(self):
+        usuario_dados = self._db_conn.query(Usuario).all()
+        return usuario_dados
+
     def pega_usuario_id(self, usuario_id):
         usuario_id = self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).first()
         return usuario_id
