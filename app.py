@@ -110,7 +110,8 @@ def deleta_usuario():
 @app.route('/menu-usuario')
 @login_required
 def mostra_menu_usuario():
-    return render_template('usuario_logado.html')
+    info_usuario = usuario_dao.retorna_dados()
+    return render_template('usuario_logado.html', info_usuario=info_usuario)
 
 
 app.run(debug=True)
