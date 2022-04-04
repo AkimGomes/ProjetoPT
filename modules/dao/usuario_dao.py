@@ -21,18 +21,6 @@ class UsuarioDAO:
         usuario = self._db_conn.query(Usuario).filter(Usuario.pis_do_usuario == usuario).first()
         return usuario
 
-    def pega_usuario_email(self, usuario_email):
-        usuario_email = self._db_conn.query(Usuario).filter(Usuario.email_do_usuario == usuario_email).first()
-        return usuario_email
-
-    def pega_usuario_cpf(self, usuario_cpf):
-        usuario_cpf = self._db_conn.query(Usuario).filter(Usuario.cpf_do_usuario == usuario_cpf).first()
-        return usuario_cpf
-
-    def pega_usuario_pis(self, usuario_pis):
-        usuario_pis = self._db_conn.query(Usuario).filter(Usuario.pis_do_usuario == usuario_pis).first()
-        return usuario_pis
-
     def registra_usuario(self, usuario):
         try:
             self._db_conn.add(usuario)
@@ -49,7 +37,14 @@ class UsuarioDAO:
                 Usuario.email_do_usuario: novas_info_usuario.email_do_usuario,
                 Usuario.senha_do_usuario: novas_info_usuario.senha_do_usuario,
                 Usuario.cpf_do_usuario: novas_info_usuario.cpf_do_usuario,
-                Usuario.pis_do_usuario: novas_info_usuario.pis_do_usuario
+                Usuario.pis_do_usuario: novas_info_usuario.pis_do_usuario,
+                Usuario.pais_do_usuario: novas_info_usuario.pais_do_usuario,
+                Usuario.estado_do_usuario: novas_info_usuario.estado_do_usuario,
+                Usuario.municipio_do_usuario: novas_info_usuario.municipio_do_usuario,
+                Usuario.cep_do_usuario: novas_info_usuario.cep_do_usuario,
+                Usuario.rua_do_usuario: novas_info_usuario.rua_do_usuario,
+                Usuario.numero_da_rua: novas_info_usuario.numero_da_rua,
+                Usuario.complemento: novas_info_usuario.complemento
             })
             self._db_conn.commit()
         except RuntimeError:
