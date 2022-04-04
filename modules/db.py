@@ -22,16 +22,6 @@ class Usuario(Base, UserMixin):
     senha_do_usuario = Column(String(256), nullable=False)
     cpf_do_usuario = Column(String(14), nullable=False, unique=True)
     pis_do_usuario = Column(String(14), nullable=False, unique=True)
-<<<<<<< HEAD
-    pais_do_usuario = Column(String(8), nullable=False)
-    estado_do_usuario = Column(String(32), nullable=False)
-    municipio_do_usuario = Column(String(64), nullable=False)
-    cep_do_usuario = Column(String(9), nullable=False)
-    rua_do_usuario = Column(String(64), nullable=False)
-    numero_da_rua = Column(Integer, nullable=False)
-    complemento = Column(String(64), nullable=False)
-=======
->>>>>>> parent of aef3572 (Remodelando a tabela de usuário e retirando a tabela de endereço)
 
     endereco_usuario = relationship('Endereco', backref=backref('Usuario'))
 
