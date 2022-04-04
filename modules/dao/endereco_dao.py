@@ -9,6 +9,10 @@ class EnderecoDAO:
         endereco_id = self._db_conn.query(Endereco).filter(Endereco.endereco_id == endereco_id).first()
         return endereco_id
 
+    def pega_endereco_por_id_usuario(self, usuario_id):
+        endereco = self._db_conn.query(Endereco).filter(Endereco.fk_id_usuario == usuario_id).first()
+        return endereco
+
     def pega_endereco_pais(self, endereco_id):
         pais_endereco = self._db_conn.query(Endereco.pais_do_usuario).filter(Endereco.endereco_id == endereco_id).first()
         self._db_conn.expunge_all()
