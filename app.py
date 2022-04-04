@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from sqlalchemy.exc import IntegrityError, DataError
-
 from modules.db import Usuario, db_session
 from modules.dao.usuario_dao import UsuarioDAO
 
@@ -47,9 +45,9 @@ def loga_usuario():
 @app.route('/registra-usuario', methods=['GET', 'POST'])
 def registra_usuario():
     if request.method == 'POST':
-        pis = usuario_dao.pega_usuario_pis(request.form['pis'])
-        cpf = usuario_dao.pega_usuario_cpf(request.form['cpf'])
-        email = usuario_dao.pega_usuario_email(request.form['email'])
+        pis = usuario_dao.pega_usuario_login_pis(request.form['pis'])
+        cpf = usuario_dao.pega_usuario_login_cpf(request.form['cpf'])
+        email = usuario_dao.pega_usuario_login_email(request.form['email'])
         if pis or cpf or email:
             flash('Dados inválidos. CPF, PIS ou Email já cadastrados!', 'error')
         else:
