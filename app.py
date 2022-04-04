@@ -75,28 +75,42 @@ def registra_usuario():
     return render_template('cadastro_de_usuario.html')
 
 
-@app.route('/informacoes-editaveis-do-usuario', methods=['GET', 'POST'])
+@app.route('/atuliza-edicao')
+def atualiza_usuario():
+    id_endereco = request.args.get('id')
+    pais_usuario = endereco_dao.pega_endereco_pais(id_endereco)
+    estado_usuario = endereco_dao.pega_endereco_estado(id_endereco)
+    municipio_usuario = endereco_dao.pega_endereco_municipio(id_endereco)
+    cep_usuario = endereco_dao.pega_endereco_cep(id_endereco)
+    rua_usuario = endereco_dao.pega_endereco_rua(id_endereco)
+    numero_usuario = endereco_dao.pega_endereco_numero(id_endereco)
+    complemento_usuario = endereco_dao.pega_endereco_complemento(id_endereco)
+    return render_template('informacoes_do_usuario_logado.html', pais_usuario=pais_usuario,
+                           estado_usuario=estado_usuario, municipio_usuario=municipio_usuario,
+                           cep_usuario=cep_usuario, rua_usuario=rua_usuario,
+                           numero_usuario=numero_usuario, complemento_usuario=complemento_usuario)
+
+
+@app.route('/informacoes-editaveis-do-usuario', methods=['POST', ])
 @login_required
 def edita_info_do_usuario():
-    if request.method == 'POST':
-        usuario = Usuario(request.form['nome'],
-                          request.form['email'],
-                          generate_password_hash(request.form['senha']),
-                          request.form['cpf'],
-                          request.form['pis'])
-        usuario_dao.altera_usuario(request.args.get('id'), usuario)
-        endereco = Endereco(usuario.id,
-                            request.form['pais'],
-                            request.form['estado'],
-                            request.form['municipio'],
-                            request.form['cep'],
-                            request.form['rua'],
-                            request.form['numero'],
-                            request.form['complemento'])
-        endereco_dao.altera_endereco(endereco.endereco_id, endereco)
-        flash('Alterações feitas com sucesso!')
-        return redirect(url_for('mostra_menu_usuario'))
-    return render_template('informacoes_do_usuario_logado.html')
+    usuario = Usuario(request.form['nome'],
+                      request.form['email'],
+                      generate_password_hash(request.form['senha']),
+                      request.form['cpf'],
+                      request.form['pis'])
+    usuario_dao.altera_usuario(usuario.id, usuario)
+    endereco = Endereco(usuario.id,
+                        request.form['pais'],
+                        request.form['estado'],
+                        request.form['municipio'],
+                        request.form['cep'],
+                        request.form['rua'],
+                        request.form['numero'],
+                        request.form['complemento'])
+    endereco_dao.altera_endereco(request.args.get('id'), endereco)
+    flash('Alterações feitas com sucesso!')
+    return redirect(url_for('mostra_menu_usuario'))
 
 
 @app.route('/desloga-usuario')
