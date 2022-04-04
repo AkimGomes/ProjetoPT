@@ -1,0 +1,86 @@
+{% extends "template_geral.html" %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block conteudo %}
+        <form action="{{ url_for('registra_usuario') }}" method="post">
+            <fieldset>
+                <h1>Faça seu cadastro</h1>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" maxlength="26" size="26" class="form-control" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" maxlength="64" size="64" class="form-control" required>
+
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" minlength="4" maxlength="25" size="25" class="form-control" required>
+
+                    <label for="cpf">CPF</label>
+                    <input oninput="mascara(this)" type="text" id="cpf" name="cpf" class="form control" min="1" required>
+
+                    <label for="pis">PIS</label>
+                    <input type="text" id="pis" name="pis" class="form-control" minlength="12" maxlength="12" size="12" required>
+
+            <fieldset>
+                <div>
+                    <label for="pais">País</label>
+                    <select name="pais" id="pais">
+                        <option disabled selected>- Selecione -</option>
+                        <option value="BR">Brasil</option>
+                    </select>
+
+                    <label>Estado</label>
+                    <select name="estado" id="estado">
+                        <option disabled selected>- Selecione -</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                        <option value="DF">Distrito Federal</option>
+                    </select>
+
+                    <label for="municipio">Município</label>
+                    <input type="text" id="municipio" name="municipio" maxlength="64" size="64" class="form-control" required>
+
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" name="cep" class="form-control" minlength="8" maxlength="10" size="10" required>
+
+                    <label for="rua">Rua</label>
+                    <input type="text" id="rua" name="rua" class="form-control" maxlength="64" size="64" required>
+
+                    <label for="numero">Número</label>
+                    <input type="number" id="numero" name="numero" class="form-control" min=1 required>
+
+                    <label for="complemento">Complemento</label>
+                    <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" required>
+                </div>
+            </fieldset>
+                </div>
+                <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+                <a class="btn btn-danger" href="{{ url_for('loga_usuario') }}">Voltar</a>
+            </fieldset>
+        </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "template_geral.html" %}
+
+{% block title %}Home do Visitante{% endblock %}
+
+{% block conteudo %}
+
+        <div class="container">
+            <a class="nav-link disabled" href="#">Olá, visitante</a>
+            <h1>Faça seu login</h1>
+            <form method="post" action="{{ url_for('loga_usuario') }}">
+                <p><label>Usúario:</label><input class="form-control" type="login" name="login" required></p>
+                <p><label>Senha:</label><input class="form-control" type="password" name="password" required></p>
+                <button type="submit" class="btn btn-primary btn-salvar">Entrar</button>
+                <a class="btn btn-success" href="{{ url_for('registra_usuario') }}">Cadastrar</a>
+            </form>
+        </div>
+
+{% endblock %}
+
