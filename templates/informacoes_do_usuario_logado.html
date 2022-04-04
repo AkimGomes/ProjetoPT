@@ -13,6 +13,9 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control" value="{{ current_user.email_do_usuario }}" required>
 
+                     <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" minlength="4" maxlength="25" size="25" class="form-control" value="{{ current_user.senha_do_usuario }}" required>
+
                     <label for="cpf">CPF</label>
                     <input oninput="mascara(this)" type="text" id="cpf" name="cpf" class="form control" value="{{ current_user.cpf_do_usuario }}" min=1 required>
 
