@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="static/css/app.css">
     </head>
     <header>
-        <a class="btn btn-primary" href="{{ url_for('atualiza_usuario') }}">Editar Informações</a>
+        <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario') }}">Editar Informações</a>
         <a class="btn btn-danger" href="{{ url_for('desloga_usuario') }}">Sair</a>
         <a class="btn btn-success" href="{{ url_for('deleta_usuario') }}">Deletar</a>
         <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
