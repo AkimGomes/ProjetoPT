@@ -1,86 +1,135 @@
-{% extends "template_geral.html" %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}Cadastro{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Menu Usuário</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/app.css">
+</head>
 
-{% block conteudo %}
+<body>
+    <header>
+        <div class="navbar fixed-top navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand d-flex align-items-center" href="#">Projetinho</a>
+                <a class="nav-link disabled" href="#">Olá, visitante</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+
+                    {% if category == 'success' %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+
+                    {% if category == 'error' %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+
+                    {% endfor %}
+                {% endif %}
+        {% endwith %}
+    </div>
+    <div>
         <form action="{{ url_for('registra_usuario') }}" method="post">
             <fieldset>
                 <h1>Faça seu cadastro</h1>
                 <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" maxlength="26" size="26" class="form-control" required>
+                    <div class="col-md-8">
+                        <label class="col-md-4 control-label" for="nome">Nome</label>
+                        <input type="text" placeholder="Nome" id="nome" name="nome" maxlength="26" size="26" class="form-control input-md" required>
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" maxlength="64" size="64" class="form-control" required>
+                        <label class="col-md-4 control-label" for="email">Email</label>
+                        <input type="email" placeholder="exemplo@gmail.com" id="email" name="email" maxlength="64" size="64" class="form-control" required>
 
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" minlength="4" maxlength="25" size="25" class="form-control" required>
+                        <label class="col-md-4 control-label" for="senha">Senha</label>
+                        <input type="password" placeholder="Senha" id="senha" name="senha" minlength="4" maxlength="25" size="25" class="form-control" required>
 
-                    <label for="cpf">CPF</label>
-                    <input oninput="mascara(this)" type="text" id="cpf" name="cpf" class="form control" min="1" required>
+                        <label class="col-md-4 control-label" for="cpf">CPF</label>
+                        <input data-js="cpf" type="text" placeholder="000.000.000-00" id="cpf" name="cpf" class="form control" min="1" required>
 
-                    <label for="pis">PIS</label>
-                    <input type="text" id="pis" name="pis" class="form-control" minlength="12" maxlength="12" size="12" required>
-
-            <fieldset>
-                <div>
-                    <label for="pais">País</label>
-                    <select name="pais" id="pais">
-                        <option disabled selected>- Selecione -</option>
-                        <option value="BR">Brasil</option>
-                    </select>
-
-                    <label>Estado</label>
-                    <select name="estado" id="estado">
-                        <option disabled selected>- Selecione -</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                        <option value="DF">Distrito Federal</option>
-                    </select>
-
-                    <label for="municipio">Município</label>
-                    <input type="text" id="municipio" name="municipio" maxlength="64" size="64" class="form-control" required>
-
-                    <label for="cep">CEP</label>
-                    <input type="text" id="cep" name="cep" class="form-control" minlength="8" maxlength="10" size="10" required>
-
-                    <label for="rua">Rua</label>
-                    <input type="text" id="rua" name="rua" class="form-control" maxlength="64" size="64" required>
-
-                    <label for="numero">Número</label>
-                    <input type="number" id="numero" name="numero" class="form-control" min=1 required>
-
-                    <label for="complemento">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" required>
+                        <label class="col-md-4 control-label" for="pis">PIS</label>
+                        <input data-js="pis" type="text" placeholder="000.00000.00-0" id="pis" name="pis" class="form-control" minlength="14" maxlength="14" size="14" required>
+                    </div>
                 </div>
-            </fieldset>
+
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label for="pais">País</label>
+                        <select name="pais" id="pais">
+                            <option disabled selected>- Selecione -</option>
+                            <option value="BR">Brasil</option>
+                        </select>
+
+                        <label>Estado</label>
+                        <select name="estado" id="estado">
+                            <option disabled selected>- Selecione -</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                            <option value="DF">Distrito Federal</option>
+                        </select>
+
+                        <label class="col-md-4 control-label" for="municipio">Município</label>
+                        <input type="text" id="municipio" placeholder="Município" name="municipio" maxlength="64" size="64" class="form-control" required>
+
+                        <label class="col-md-4 control-label" for="cep">CEP</label>
+                        <input data-js="cep" type="text" id="cep" placeholder="00000-000" name="cep" class="form-control" minlength="8" maxlength="10" size="10" required>
+
+                        <label class="col-md-4 control-label" for="rua">Rua</label>
+                        <input type="text" id="rua" placeholder="Rua Exemplo" name="rua" class="form-control" maxlength="64" size="64" required>
+
+                        <label class="col-md-4 control-label" for="numero">Número</label>
+                        <input type="number" id="numero" placeholder="000" name="numero" class="form-control" min=1 required>
+
+                        <label class="col-md-4 control-label" for="complemento">Complemento</label>
+                        <input type="text" id="complemento" placeholder="Apto 00" name="complemento" maxlength="64" size="64" class="form-control" required>
+                    </div>
                 </div>
+
                 <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
                 <a class="btn btn-danger" href="{{ url_for('loga_usuario') }}">Voltar</a>
+
             </fieldset>
         </form>
-{% endblock %}
+    </div>
+
+    <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="static/js/app.js"></script>
+
+</body>
+</html>
