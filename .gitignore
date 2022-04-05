@@ -1,2 +1,4 @@
 
 *.pyc
+modules/__pycache__/db.cpython-39.pyc
+modules/dao/__pycache__/usuario_dao.cpython-39.pyc
