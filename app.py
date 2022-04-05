@@ -4,7 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import BadRequestKeyError
 
 from modules.db import Usuario, db_session
+from modules.db import Endereco, db_session
 from modules.dao.usuario_dao import UsuarioDAO
+from modules.dao.endereco_dao import EnderecoDAO
 
 app = Flask(__name__)
 app.secret_key = "ProjetoTPT"
@@ -14,6 +16,7 @@ login_manager.login_view = ''
 login_manager.login_message = "Por favor, faça o login para acessar o sistema!"
 
 usuario_dao = UsuarioDAO(db_session)
+endereco_dao = EnderecoDAO(db_session)
 
 
 @login_manager.user_loader
@@ -69,15 +72,17 @@ def registra_usuario():
                                   request.form['email'],
                                   generate_password_hash(request.form['senha']),
                                   request.form['cpf'],
-                                  request.form['pis'],
-                                  request.form['pais'],
-                                  request.form['estado'],
-                                  request.form['municipio'],
-                                  request.form['cep'],
-                                  request.form['rua'],
-                                  request.form['numero'],
-                                  request.form['complemento'])
+                                  request.form['pis'])
                 usuario_dao.registra_usuario(usuario)
+                endereco = Endereco(usuario.id,
+                                    request.form['pais'],
+                                    request.form['estado'],
+                                    request.form['municipio'],
+                                    request.form['cep'],
+                                    request.form['rua'],
+                                    request.form['numero'],
+                                    request.form['complemento'])
+                endereco_dao.registra_endereco(endereco)
                 flash('Usuário cadastrado com sucesso!', 'success')
                 return redirect(url_for('loga_usuario'))
         except BadRequestKeyError:
@@ -94,20 +99,23 @@ def edita_info_do_usuario():
                               request.form['email'],
                               generate_password_hash(request.form['senha']),
                               request.form['cpf'],
-                              request.form['pis'],
-                              request.form['pais'],
-                              request.form['estado'],
-                              request.form['municipio'],
-                              request.form['cep'],
-                              request.form['rua'],
-                              request.form['numero'],
-                              request.form['complemento'])
-            usuario_dao.altera_usuario(request.args.get('id'), usuario)
+                              request.form['pis'])
+            usuario_dao.altera_usuario(request.args.get('usuario_id'), usuario)
+            endereco = Endereco(usuario.id,
+                                request.form['pais'],
+                                request.form['estado'],
+                                request.form['municipio'],
+                                request.form['cep'],
+                                request.form['rua'],
+                                request.form['numero'],
+                                request.form['complemento'])
+            endereco_dao.altera_endereco(request.args.get('endereco_id'), endereco)
             flash('Alterações feitas com sucesso!', 'success')
             return redirect(url_for('mostra_menu_usuario'))
         except BadRequestKeyError:
             flash('Por favor, preencha os dados de Pais e Estado', 'error')
-    return render_template('informacoes_do_usuario_logado.html')
+    endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
+    return render_template('informacoes_do_usuario_logado.html', endereco=endereco)
 
 
 @app.route('/desloga-usuario')
@@ -121,7 +129,7 @@ def desloga_usuario():
 @app.route('/deleta-usuario')
 @login_required
 def deleta_usuario():
-    usuario_dao.deleta_usuario(request.args.get('id'))
+    usuario_dao.deleta_usuario(request.args.get('usuario_id'))
     flash('Usuário removido com sucesso!', 'success')
     return redirect(url_for('loga_usuario'))
 

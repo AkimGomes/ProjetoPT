@@ -3,7 +3,7 @@
 {% block title %}Informações do Usuário{% endblock %}
 
 {% block conteudo %}
-        <form action="{{ url_for('edita_info_do_usuario', id=request.args.get('id')) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url_for('edita_info_do_usuario', usuario_id=request.args.get('usuario_id'), endereco_id=endereco.endereco_id) }}" method="post" enctype="multipart/form-data">
             <fieldset>
                 <h1>Atualize seus dados</h1>
                 <div class="form-group">
@@ -63,19 +63,19 @@
                     </select>
 
                     <label for="municipio">Município</label>
-                    <input type="text" id="municipio" name="municipio" maxlength="64" size="64" class="form-control" value="{{ current_user.municipio_do_usuario }}" required>
+                    <input type="text" id="municipio" name="municipio" maxlength="64" size="64" class="form-control" value="{{ endereco.municipio_do_usuario }}" required>
 
                     <label for="cep">CEP</label>
-                    <input type="text" id="cep" name="cep" maxlength="9" size="9" class="form-control" value="{{ current_user.cep_do_usuario }}" required>
+                    <input type="text" id="cep" name="cep" maxlength="9" size="9" class="form-control" value="{{ endereco.cep_do_usuario }}" required>
 
                     <label for="rua">Rua</label>
-                    <input type="text" id="rua" name="rua" maxlength="64" size="64" class="form-control" value="{{ current_user.rua_do_usuario }}" required>
+                    <input type="text" id="rua" name="rua" maxlength="64" size="64" class="form-control" value="{{ endereco.rua_do_usuario }}" required>
 
                     <label for="numero">Número</label>
-                    <input type="number" id="numero" name="numero" class="form-control" value="{{ current_user.numero_da_rua }}" min="1" required>
+                    <input type="number" id="numero" name="numero" class="form-control" value="{{ endereco.numero_da_rua }}" min="1" required>
 
                     <label for="complemento">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" value="{{ current_user.complemento }}" required>
+                    <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" value="{{ endereco.complemento }}" required>
                 </div>
             </fieldset>
                 </div>
