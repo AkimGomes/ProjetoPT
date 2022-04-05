@@ -41,7 +41,7 @@ def loga_usuario():
             login_user(usuario_pis)
             return redirect(url_for('mostra_menu_usuario'))
         else:
-            flash('Usuário ou senha inválidos!(CPF=000.000.000-00)', 'error')
+            flash('Usuário ou senha inválidos!(CPF=000.000.000-00, PIS=000.00000.00-0)', 'error')
             return redirect(url_for('loga_usuario'))
     return render_template('inicio.html')
 
