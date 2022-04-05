@@ -1,16 +1,87 @@
 $('div.alert').not('.alert-important').delay(1600).slideUp(300);
 
-function mascara(i){
+const masks = {
+  cpf (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1')
+  },
 
-   var v = i.value;
+  cnpj (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{2})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1/$2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1')
+  },
 
-   if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
-      i.value = v.substring(0, v.length-1);
-      return;
-   }
+  phone (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{2})(\d)/, '($1) $2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+      .replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3')
+      .replace(/(-\d{4})\d+?$/, '$1')
+  },
 
-   i.setAttribute("maxlength", "14");
-   if (v.length == 3 || v.length == 7) i.value += ".";
-   if (v.length == 11) i.value += "-";
+  phoneDDI (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{2})(\d)/, '+$1 $2')
+      .replace(/(\d{2})(\d)/, '($1) $2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+      .replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3')
+      .replace(/(-\d{4})\d+?$/, '$1')
+  },
 
+  cep (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{5})(\d)/, '$1-$2')
+      .replace(/(-\d{3})\d+?$/, '$1')
+  },
+
+  pis (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{5})(\d)/, '$1.$2')
+      .replace(/(\d{5}\.)(\d{2})(\d)/, '$1$2-$3')
+      .replace(/(-\d)\d+?$/, '$1')
+  },
+
+  money (value) {
+    const cleanValue = +value.replace(/\D+/g, '')
+    const options = { style: 'currency', currency: 'BRL' }
+    return new Intl.NumberFormat('pt-br', options).format(cleanValue / 100)
+  },
+
+  date (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{2})(\d)/, '$1/$2')
+      .replace(/(\/\d{2})(\d)/, '$1/$2')
+      .replace(/(\/\d{4})\d+?$/, '$1')
+  },
+
+  dateWithDashes (value) {
+    return value
+      .replace(/\D+/g, '')
+      .replace(/(\d{2})(\d)/, '$1-$2')
+      .replace(/(-\d{2})(\d)/, '$1-$2')
+      .replace(/(-\d{4})\d+?$/, '$1')
+  },
 }
+
+document.querySelectorAll('input').forEach($input => {
+  const field = $input.dataset.js
+
+  $input.addEventListener('input', e => {
+    e.target.value = masks[field](e.target.value)
+  }, false)
+})
