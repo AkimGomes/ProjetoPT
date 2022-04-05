@@ -41,7 +41,7 @@ def loga_usuario():
             login_user(usuario_pis)
             return redirect(url_for('mostra_menu_usuario'))
         else:
-            flash('Usuário ou senha inválidos!(CPF=000.000.000-00)', 'error')
+            flash('Usuário ou senha inválidos!(CPF=000.000.000-00, PIS=000.00000.00-0)', 'error')
             return redirect(url_for('loga_usuario'))
     return render_template('inicio.html')
 
@@ -129,6 +129,7 @@ def desloga_usuario():
 @app.route('/deleta-usuario')
 @login_required
 def deleta_usuario():
+    endereco_dao.deleta_endereco(request.args.get('usuario_id'))
     usuario_dao.deleta_usuario(request.args.get('usuario_id'))
     flash('Usuário removido com sucesso!', 'success')
     return redirect(url_for('loga_usuario'))
