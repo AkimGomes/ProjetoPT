@@ -1,5 +1,5 @@
 body {
-    padding-top: 10px;
+    padding-top: 80px;
 }
 
 .btn {
@@ -39,10 +39,6 @@ figcaption {
     right: 0;
     text-align: right;
     top: 0;
-}
-
-td {
-    text-align: center;
 }
 
 .alert-dismissible {
