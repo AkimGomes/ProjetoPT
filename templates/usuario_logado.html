@@ -13,7 +13,7 @@
     <header>
         <div class="navbar fixed-top navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a class="navbar-brand d-flex align-items-center" href="#">Projetinho</a>
+                <a class="navbar-brand d-flex align-items-center" href="#">Cadastra, sô!</a>
 
                 <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
 
@@ -26,6 +26,7 @@
     </header>
 
     <div class="container">
+
         {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -45,11 +46,48 @@
                     {% endfor %}
                 {% endif %}
         {% endwith %}
+
+        <form action="{{ url_for('edita_info_do_usuario', usuario_id=request.args.get('usuario_id')) }}" method="get" enctype="multipart/form-data">
+                <h1>Informações</h1>
+                    <label for="nome" class="col-md-4 control-label">Nome</label>
+                    <input id="nome" class="form-control" value="{{ current_user.nome_do_usuario }}" readonly>
+
+                    <label for="email" class="col-md-4 control-label">Email</label>
+                    <input id="email" class="form-control" value="{{ current_user.email_do_usuario }}" readonly>
+
+                    <label for="cpf" class="col-md-4 control-label">CPF</label>
+                    <input id="cpf" class="form-control" value="{{ current_user.cpf_do_usuario }}" readonly>
+
+                    <label for="pis" class="col-md-4 control-label">PIS</label>
+                    <input id="pis" class="form-control" value="{{ current_user.pis_do_usuario }}" readonly>
+
+                    <label for="pais" class="col-md-4 control-label">País</label>
+                    <input id="pais" class="form-control" value="{{ pais_do_usuario }}" readonly>
+
+                    <label for="estado" class="col-md-4 control-label">Estado</label>
+                    <input id="estado" class="form-control" value="{{ estado_do_usuario }}" readonly>
+
+                    <label for="municipio" class="col-md-4 control-label">Município</label>
+                    <input id="municipio" class="form-control" value="{{ municipio_do_usuario }}" readonly>
+
+                    <label for="cep" class="col-md-4 control-label">CEP</label>
+                    <input id="cep" class="form-control" value="{{ cep_do_usuario }}" readonly>
+
+                    <label for="rua" class="col-md-4 control-label">Rua</label>
+                    <input id="rua" class="form-control" value="{{ rua_do_usuario }}" readonly>
+
+                    <label for="numero" class="col-md-4 control-label">Número</label>
+                    <input id="numero" class="form-control" value="{{ numero_da_rua }}" readonly>
+
+                    <label for="complemento" class="col-md-4 control-label">Complemento</label>
+                    <input id="complemento" class="form-control" value="{{ complemento }}" readonly>
+
+        </form>
+
+        <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
+        <a class="btn btn-danger" href="{{ url_for('deleta_usuario', usuario_id=current_user.id, endereco_id=current_user.id) }}">Excluir usuário</a>
+
     </div>
-
-
-    <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
-    <a class="btn btn-success" href="{{ url_for('deleta_usuario', usuario_id=current_user.id, endereco_id=current_user.id) }}">Deletar</a>
 
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script type="text/javascript" src="static/js/app.js"></script>
