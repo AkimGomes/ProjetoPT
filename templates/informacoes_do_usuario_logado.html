@@ -55,7 +55,7 @@
                     <input type="email" id="email" name="email" maxlength="64" size="64"  class="form-control" value="{{ current_user.email_do_usuario }}" required>
 
                     <label for="senha" class="col-md-4 control-label">Senha</label>
-                    <input type="password" placeholder="Digite sua senha ou atualize" id="senha" name="senha" maxlength="25" size="25" class="form-control" required>
+                    <input type="password" id="senha" name="senha" maxlength="25" size="25" class="form-control" required>
 
                     <label for="cpf" class="col-md-4 control-label">CPF</label>
                     <input data-js="cpf" type="text" id="cpf" name="cpf" class="form-control" value="{{ current_user.cpf_do_usuario }}" min=1 required>
@@ -117,7 +117,7 @@
                     <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" value="{{ endereco.complemento }}" required>
 
             <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
-            <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario') }}">Voltar</a>
+            <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')) }}">Voltar</a>
 
         </form>
     </div>

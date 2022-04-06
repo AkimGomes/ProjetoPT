@@ -47,7 +47,7 @@
                 {% endif %}
         {% endwith %}
 
-        <form action="{{ url_for('edita_info_do_usuario', usuario_id=request.args.get('usuario_id')) }}" method="get" enctype="multipart/form-data">
+        <form action="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}" method="get" enctype="multipart/form-data">
                 <h1>Informações</h1>
                     <label for="nome" class="col-md-4 control-label">Nome</label>
                     <input id="nome" class="form-control" value="{{ current_user.nome_do_usuario }}" readonly>
@@ -62,25 +62,25 @@
                     <input id="pis" class="form-control" value="{{ current_user.pis_do_usuario }}" readonly>
 
                     <label for="pais" class="col-md-4 control-label">País</label>
-                    <input id="pais" class="form-control" value="{{ pais_do_usuario }}" readonly>
+                    <input id="pais" class="form-control" value="{{ endereco.pais_do_usuario }}" readonly>
 
                     <label for="estado" class="col-md-4 control-label">Estado</label>
-                    <input id="estado" class="form-control" value="{{ estado_do_usuario }}" readonly>
+                    <input id="estado" class="form-control" value="{{ endereco.estado_do_usuario }}" readonly>
 
                     <label for="municipio" class="col-md-4 control-label">Município</label>
-                    <input id="municipio" class="form-control" value="{{ municipio_do_usuario }}" readonly>
+                    <input id="municipio" class="form-control" value="{{ endereco.municipio_do_usuario }}" readonly>
 
                     <label for="cep" class="col-md-4 control-label">CEP</label>
-                    <input id="cep" class="form-control" value="{{ cep_do_usuario }}" readonly>
+                    <input id="cep" class="form-control" value="{{ endereco.cep_do_usuario }}" readonly>
 
                     <label for="rua" class="col-md-4 control-label">Rua</label>
-                    <input id="rua" class="form-control" value="{{ rua_do_usuario }}" readonly>
+                    <input id="rua" class="form-control" value="{{ endereco.rua_do_usuario }}" readonly>
 
                     <label for="numero" class="col-md-4 control-label">Número</label>
-                    <input id="numero" class="form-control" value="{{ numero_da_rua }}" readonly>
+                    <input id="numero" class="form-control" value="{{ endereco.numero_da_rua }}" readonly>
 
                     <label for="complemento" class="col-md-4 control-label">Complemento</label>
-                    <input id="complemento" class="form-control" value="{{ complemento }}" readonly>
+                    <input id="complemento" class="form-control" value="{{ endereco.complemento }}" readonly>
 
         </form>
 
