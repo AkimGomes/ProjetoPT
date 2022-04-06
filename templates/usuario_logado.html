@@ -82,12 +82,14 @@
                     <label for="complemento" class="col-md-4 control-label">Complemento</label>
                     <input id="complemento" class="form-control" value="{{ endereco.complemento }}" readonly>
 
+
+            <div class="botao">
+                <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
+                <a class="btn btn-danger" href="{{ url_for('deleta_usuario', usuario_id=current_user.id, endereco_id=current_user.id) }}">Excluir usuário</a>
+            </div>
         </form>
     </div>
-    <div class="botao">
-        <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
-        <a class="btn btn-danger" href="{{ url_for('deleta_usuario', usuario_id=current_user.id, endereco_id=current_user.id) }}">Excluir usuário</a>
-    </div>
+
 
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script type="text/javascript" src="static/js/app.js"></script>
