@@ -116,10 +116,12 @@
                     <label for="complemento" class="col-md-4 control-label">Complemento</label>
                     <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" value="{{ endereco.complemento }}" required>
 
-            <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
-            <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')) }}">Voltar</a>
-
         </form>
+    </div>
+
+    <div class="botao">
+        <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+        <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')) }}">Voltar</a>
     </div>
 
     <script type="text/javascript" src="static/js/jquery.js"></script>
