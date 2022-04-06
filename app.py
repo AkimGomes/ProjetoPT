@@ -33,13 +33,13 @@ def loga_usuario():
         senha = request.form['password']
         if _verifica_email_e_senha_do_usuario(usuario, senha):
             login_user(usuario)
-            return redirect(url_for('mostra_menu_usuario'))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id))
         if _verifica_cpf_e_senha_do_usuario(usuario_cpf, senha):
             login_user(usuario_cpf)
-            return redirect(url_for('mostra_menu_usuario'))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id))
         if _verifica_pis_e_senha_do_usuario(usuario_pis, senha):
             login_user(usuario_pis)
-            return redirect(url_for('mostra_menu_usuario'))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id))
         else:
             flash('Usuário ou senha inválidos!(CPF=000.000.000-00, PIS=000.00000.00-0)', 'error')
             return redirect(url_for('loga_usuario'))
@@ -135,10 +135,11 @@ def deleta_usuario():
     return redirect(url_for('loga_usuario'))
 
 
-@app.route('/menu-usuario')
+@app.route('/menu-usuario', methods=['GET', 'POST'])
 @login_required
 def mostra_menu_usuario():
-    return render_template('usuario_logado.html')
+    endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
+    return render_template('usuario_logado.html', endereco=endereco)
 
 
 app.run(debug=True)

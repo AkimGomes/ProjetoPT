@@ -117,7 +117,7 @@
                     <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" value="{{ endereco.complemento }}" required>
 
             <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
-            <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario') }}">Voltar</a>
+            <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')) }}">Voltar</a>
 
         </form>
     </div>
