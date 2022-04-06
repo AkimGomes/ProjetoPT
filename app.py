@@ -111,7 +111,7 @@ def edita_info_do_usuario():
                                 request.form['complemento'])
             endereco_dao.altera_endereco(request.args.get('endereco_id'), endereco)
             flash('Alterações feitas com sucesso!', 'success')
-            return redirect(url_for('mostra_menu_usuario'))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')))
         except BadRequestKeyError:
             flash('Por favor, preencha os dados de Pais e Estado', 'error')
     endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
