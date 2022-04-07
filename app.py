@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import BadRequestKeyError
-
+import datetime
+import jwt
+from functools import wraps
 from modules.db import Usuario, db_session
 from modules.db import Endereco, db_session
 from modules.dao.usuario_dao import UsuarioDAO
@@ -24,6 +26,20 @@ def load_user(usuario_id):
     return usuario_dao.pega_usuario_id(usuario_id)
 
 
+def verifica_token(func):
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        token = request.args.get('token')
+        if not token:
+            return jsonify({'message': 'Sem token de autenticacao'}), 403
+        try:
+            dados = jwt.decode(token, app.secret_key)
+        except:
+            return jsonify({'message': 'Token de autenticacao invalido'}), 403
+        return func(*args, **kwargs)
+    return wrapped
+
+
 @app.route('/inicio', methods=['GET', 'POST'])
 def loga_usuario():
     if request.method == 'POST':
@@ -32,14 +48,32 @@ def loga_usuario():
         usuario_pis = usuario_dao.pega_usuario_login_pis(request.form['login'])
         senha = request.form['password']
         if _verifica_email_e_senha_do_usuario(usuario, senha):
+            payload = {
+                "id": usuario.id,
+                "nome": usuario.nome_do_usuario,
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+            }
+            token = jwt.encode(payload, app.secret_key)
             login_user(usuario)
-            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id, token=token.decode('utf-8')))
         if _verifica_cpf_e_senha_do_usuario(usuario_cpf, senha):
+            payload = {
+                "id": usuario.id,
+                "nome": usuario.nome_do_usuario,
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+            }
+            token = jwt.encode(payload, app.secret_key)
             login_user(usuario_cpf)
-            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id, token=token.decode('utf-8')))
         if _verifica_pis_e_senha_do_usuario(usuario_pis, senha):
+            payload = {
+                "id": usuario.id,
+                "nome": usuario.nome_do_usuario,
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+            }
+            token = jwt.encode(payload, app.secret_key)
             login_user(usuario_pis)
-            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id, token=token.decode('utf-8')))
         else:
             flash('Usuário ou senha inválidos!(CPF=000.000.000-00, PIS=000.00000.00-0)', 'error')
             return redirect(url_for('loga_usuario'))
@@ -91,6 +125,7 @@ def registra_usuario():
 
 
 @app.route('/informacoes-editaveis-do-usuario', methods=['GET', 'POST'])
+@verifica_token
 @login_required
 def edita_info_do_usuario():
     if request.method == 'POST':
@@ -111,11 +146,13 @@ def edita_info_do_usuario():
                                 request.form['complemento'])
             endereco_dao.altera_endereco(request.args.get('endereco_id'), endereco)
             flash('Alterações feitas com sucesso!', 'success')
-            return redirect(url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')))
+            token = request.args.get('token')
+            return redirect(url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id'), token=token))
         except BadRequestKeyError:
             flash('Por favor, preencha os dados de Pais e Estado', 'error')
     endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
-    return render_template('informacoes_do_usuario_logado.html', endereco=endereco)
+    token = request.args.get('token')
+    return render_template('informacoes_do_usuario_logado.html', endereco=endereco, token=token)
 
 
 @app.route('/desloga-usuario')
@@ -127,19 +164,23 @@ def desloga_usuario():
 
 
 @app.route('/deleta-usuario')
+@verifica_token
 @login_required
 def deleta_usuario():
     endereco_dao.deleta_endereco(request.args.get('usuario_id'))
     usuario_dao.deleta_usuario(request.args.get('usuario_id'))
     flash('Usuário removido com sucesso!', 'success')
-    return redirect(url_for('loga_usuario'))
+    token = request.args.get('token')
+    return redirect(url_for('loga_usuario', token=token))
 
 
 @app.route('/menu-usuario', methods=['GET', 'POST'])
+@verifica_token
 @login_required
 def mostra_menu_usuario():
     endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
-    return render_template('usuario_logado.html', endereco=endereco)
+    token = request.args.get('token')
+    return render_template('usuario_logado.html', endereco=endereco, token=token)
 
 
 app.run(debug=True)
