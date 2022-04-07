@@ -58,22 +58,22 @@ def loga_usuario():
             return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id, token=token.decode('utf-8')))
         if _verifica_cpf_e_senha_do_usuario(usuario_cpf, senha):
             payload = {
-                "id": usuario.id,
-                "nome": usuario.nome_do_usuario,
+                "id": usuario_cpf.id,
+                "nome": usuario_cpf.nome_do_usuario,
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
             }
             token = jwt.encode(payload, app.secret_key)
             login_user(usuario_cpf)
-            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id, token=token.decode('utf-8')))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario_cpf.id, token=token.decode('utf-8')))
         if _verifica_pis_e_senha_do_usuario(usuario_pis, senha):
             payload = {
-                "id": usuario.id,
-                "nome": usuario.nome_do_usuario,
+                "id": usuario_pis.id,
+                "nome": usuario_pis.nome_do_usuario,
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
             }
             token = jwt.encode(payload, app.secret_key)
             login_user(usuario_pis)
-            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario.id, token=token.decode('utf-8')))
+            return redirect(url_for('mostra_menu_usuario', usuario_id=usuario_pis.id, token=token.decode('utf-8')))
         else:
             flash('Usuário ou senha inválidos!(CPF=000.000.000-00, PIS=000.00000.00-0)', 'error')
             return redirect(url_for('loga_usuario'))
