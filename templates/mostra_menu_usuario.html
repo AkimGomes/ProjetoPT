@@ -84,8 +84,8 @@
 
 
             <div class="botao">
-                <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id, token=token) }}">Editar Informações</a>
-                <a class="btn btn-danger" href="{{ url_for('deleta_usuario', usuario_id=current_user.id, token=token) }}">Excluir usuário</a>
+                <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
+                <a class="btn btn-danger" href="{{ url_for('deleta_usuario', usuario_id=current_user.id) }}">Excluir usuário</a>
             </div>
         </form>
     </div>

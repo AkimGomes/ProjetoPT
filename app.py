@@ -44,7 +44,7 @@ def loga_usuario():
         else:
             flash('Usuário ou senha inválidos!(CPF=000.000.000-00, PIS=000.00000.00-0)', 'error')
             return redirect(url_for('loga_usuario'))
-    return render_template('inicio.html')
+    return render_template('loga_usuario.html')
 
 
 def _verifica_email_e_senha_do_usuario(usuario, senha):
@@ -88,10 +88,10 @@ def registra_usuario():
                 return redirect(url_for('loga_usuario'))
         except BadRequestKeyError:
             flash('Por favor, preencha os dados de Pais e Estado', 'error')
-    return render_template('cadastro_de_usuario.html')
+    return render_template('registra_usuario.html')
 
 
-@app.route('/informacoes-editaveis-do-usuario', methods=['GET', 'POST'])
+@app.route('/edita-info-do-usuario', methods=['GET', 'POST'])
 @login_required
 def edita_info_do_usuario():
     if request.method == 'POST':
@@ -116,7 +116,7 @@ def edita_info_do_usuario():
         except BadRequestKeyError:
             flash('Por favor, preencha os dados de Pais e Estado', 'error')
     endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
-    return render_template('informacoes_do_usuario_logado.html', endereco=endereco)
+    return render_template('edita_info_do_usuario.html', endereco=endereco)
 
 
 @app.route('/desloga-usuario')
@@ -140,7 +140,7 @@ def deleta_usuario():
 @login_required
 def mostra_menu_usuario():
     endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
-    return render_template('usuario_logado.html', endereco=endereco)
+    return render_template('mostra_menu_usuario.html', endereco=endereco)
 
 
 app.run(debug=True)
