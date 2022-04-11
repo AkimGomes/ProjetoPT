@@ -58,10 +58,10 @@
                     <input type="password" placeholder="Digite sua senha ou atualize" id="senha" name="senha" maxlength="25" size="25" class="form-control" required>
 
                     <label for="cpf" class="col-md-4 control-label">CPF</label>
-                    <input data-js="cpf" type="text" id="cpf" name="cpf" class="form-control" value="{{ current_user.cpf_do_usuario }}" min=1 required>
+                    <input data-js="cpf" type="text" id="cpf" name="cpf" minlength="14" maxlength="14" size="14" class="form-control" value="{{ current_user.cpf_do_usuario }}" required>
 
                     <label for="pis" class="col-md-4 control-label">PIS</label>
-                    <input data-js="pis" type="text" id="pis" name="pis" maxlength="14" size="14" class="form-control" value="{{ current_user.pis_do_usuario }}" min=1 required>
+                    <input data-js="pis" type="text" id="pis" name="pis" maxlength="14" size="14" class="form-control" value="{{ current_user.pis_do_usuario }}" required>
 
                     <label for="pais" class="col-md-4 control-label">País</label>
                     <select name="pais" id="pais" class="form-control">
