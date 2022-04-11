@@ -1,9 +1,10 @@
 from flask import url_for, flash
 from flask_login import login_user
 from werkzeug.utils import redirect
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from controllers import usuario_dao
+from models.usuario import Usuario
 
 
 def pegar_login_e_senha_do_usuario(request):
@@ -39,3 +40,29 @@ def _verifica_cpf_e_senha_do_usuario(usuario, senha):
 
 def _verifica_pis_e_senha_do_usuario(usuario, senha):
     return usuario and check_password_hash(usuario.senha_do_usuario, senha)
+
+
+def registra_usuario_no_sistema(request):
+    usuario = Usuario(request.form['nome'],
+                      request.form['email'],
+                      generate_password_hash(request.form['senha']),
+                      request.form['cpf'],
+                      request.form['pis'])
+    usuario_dao.registra_usuario(usuario)
+    usuario_id = usuario.id
+    return usuario_id
+
+
+def aplica_edicoes_de_info_do_usuario(request):
+    usuario = Usuario(request.form['nome'],
+                      request.form['email'],
+                      generate_password_hash(request.form['senha']),
+                      request.form['cpf'],
+                      request.form['pis'])
+    usuario_dao.altera_usuario(request.args.get('usuario_id'), usuario)
+    usuario_id = usuario.id
+    return usuario_id
+
+
+def deleta_usuario_por_id(request):
+    usuario_dao.deleta_usuario(request.args.get('usuario_id'))
