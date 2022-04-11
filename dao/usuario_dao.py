@@ -1,4 +1,4 @@
-from modules.db import Usuario
+from dao import Usuario
 
 
 class UsuarioDAO:

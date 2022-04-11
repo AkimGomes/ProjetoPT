@@ -1,4 +1,4 @@
-from modules.db import Endereco
+from dao import Endereco
 
 
 class EnderecoDAO:
