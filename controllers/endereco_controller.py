@@ -16,7 +16,7 @@ def registrar_endereco_no_sistema(requisicao: Request, usuario_id: int):
     endereco_dao.registrar_endereco(endereco)
 
 
-def pegar_endereco_por_id_do_usuario(requisicao: Request):
+def pegar_endereco_por_id_do_usuario(requisicao: Request) -> Endereco:
     endereco: Endereco = endereco_dao.pegar_endereco_por_id_usuario(requisicao.args.get('usuario_id'))
     return endereco
 

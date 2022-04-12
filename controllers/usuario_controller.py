@@ -49,7 +49,7 @@ def _verificar_pis_e_senha_do_usuario(usuario: Usuario, senha: str) -> tuple[Usu
     return usuario and check_password_hash(usuario.senha_do_usuario, senha)
 
 
-def registrar_usuario_no_sistema(requisicao: Request):
+def registrar_usuario_no_sistema(requisicao: Request) -> int:
     usuario = Usuario(requisicao.form['nome'],
                       requisicao.form['email'],
                       generate_password_hash(requisicao.form['senha']),
@@ -60,7 +60,7 @@ def registrar_usuario_no_sistema(requisicao: Request):
     return usuario_id
 
 
-def aplicar_edicoes_de_info_do_usuario(requisicao: Request):
+def aplicar_edicoes_de_info_do_usuario(requisicao: Request) -> int:
     usuario = Usuario(requisicao.form['nome'],
                       requisicao.form['email'],
                       generate_password_hash(requisicao.form['senha']),
