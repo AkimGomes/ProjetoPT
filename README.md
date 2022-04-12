@@ -10,6 +10,7 @@ Projeto voltado para o cadastro, login, logout, exclusão e edição de dados do
 - Instalar o PyMySQL 1.0.2.
 - Instalar o cryptography 36.0.1.
 - Após a instalação dos pacotes iniciais realizar a criação do banco de dados. Exemplo: MySQL Workbench -> create database ProjetoPT.
+- Antes de rodar a aplicação, rodar o arquivo db.py para a criação das tabelas usadas no manuseio de dados do usuário.
 - Rodar a aplicação e realizar o cadastro de usuário.
 # Funcionalidades
 # Login
