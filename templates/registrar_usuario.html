@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editar Usuário</title>
+    <title>Cadastro de Usuário</title>
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/app.css">
 </head>
@@ -14,13 +14,7 @@
         <div class="navbar fixed-top navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand d-flex align-items-center" href="#">Cadastra, sô!</a>
-
-                <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
-
-                <form class="navbar-form navbar-right" action="{{ url_for('desloga_usuario') }}">
-                    <button type="submit" class="btn btn-success">Sair</button>
-                </form>
-
+                <a class="nav-link disabled" href="#">Olá, visitante</a>
             </div>
         </div>
     </header>
@@ -45,33 +39,33 @@
                     {% endfor %}
                 {% endif %}
         {% endwith %}
+        <form method="post" action="{{ url_for('registrar_usuario') }}">
+            <h1>Faça seu cadastro</h1>
+                    <label class="col-md-4 control-label" for="nome">Nome</label>
+                    <input type="text" placeholder="Nome" id="nome" name="nome" maxlength="26" size="26" class="form-control input-md" required>
 
-        <form action="{{ url_for('edita_info_do_usuario', usuario_id=request.args.get('usuario_id'), endereco_id=endereco.endereco_id) }}" method="post" enctype="multipart/form-data">
-                <h1>Atualize seus dados</h1>
-                    <label for="nome" class="col-md-4 control-label">Nome</label>
-                    <input type="text" id="nome" name="nome" maxlength="26" size="26" class="form-control" value="{{ current_user.nome_do_usuario }}" required>
+                    <label class="col-md-4 control-label" for="email">Email</label>
+                    <input type="email" placeholder="exemplo@gmail.com" id="email" name="email" maxlength="64" size="64" class="form-control" required>
 
-                    <label for="email" class="col-md-4 control-label">Email</label>
-                    <input type="email" id="email" name="email" maxlength="64" size="64"  class="form-control" value="{{ current_user.email_do_usuario }}" required>
+                    <label class="col-md-4 control-label" for="senha">Senha</label>
+                    <input type="password" placeholder="Senha" id="senha" name="senha" minlength="4" maxlength="25" size="25" class="form-control" required>
 
-                    <label for="senha" class="col-md-4 control-label">Senha</label>
-                    <input type="password" placeholder="Digite sua senha ou atualize" id="senha" name="senha" maxlength="25" size="25" class="form-control" required>
+                    <label class="col-md-4 control-label" for="cpf">CPF</label>
+                    <input data-js="cpf" type="text" placeholder="000.000.000-00" id="cpf" name="cpf" class="form-control" minlength="14" maxlength="14" size="14" required>
 
-                    <label for="cpf" class="col-md-4 control-label">CPF</label>
-                    <input data-js="cpf" type="text" id="cpf" name="cpf" minlength="14" maxlength="14" size="14" class="form-control" value="{{ current_user.cpf_do_usuario }}" required>
+                    <label class="col-md-4 control-label" for="pis">PIS</label>
+                    <input data-js="pis" type="text" placeholder="000.00000.00-0" id="pis" name="pis" class="form-control" minlength="14" maxlength="14" size="14" required>
 
-                    <label for="pis" class="col-md-4 control-label">PIS</label>
-                    <input data-js="pis" type="text" id="pis" name="pis" maxlength="14" size="14" class="form-control" value="{{ current_user.pis_do_usuario }}" required>
 
                     <label for="pais" class="col-md-4 control-label">País</label>
                     <select name="pais" id="pais" class="form-control">
                         <option disabled selected>- Selecione -</option>
-                        <option selected="selected" value="BR">Brasil</option>
+                        <option value="BR">Brasil</option>
                     </select>
 
                     <label for="estado" class="col-md-4 control-label">Estado</label>
                     <select name="estado" id="estado" class="form-control">
-                        <option selected="selected">{{ endereco.estado_do_usuario }}</option>
+                        <option disabled selected>- Selecione -</option>
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
                         <option value="Amapá">Amapá</option>
@@ -101,29 +95,28 @@
                         <option value="Distrito Federal">Distrito Federal</option>
                     </select>
 
-                    <label for="municipio" class="col-md-4 control-label">Município</label>
-                    <input type="text" id="municipio" name="municipio" maxlength="64" size="64" class="form-control" value="{{ endereco.municipio_do_usuario }}" required>
+                    <label class="col-md-4 control-label" for="municipio">Município</label>
+                    <input type="text" id="municipio" placeholder="Município" name="municipio" maxlength="64" size="64" class="form-control" required>
 
-                    <label for="cep" class="col-md-4 control-label">CEP</label>
-                    <input data-js="cep" type="text" id="cep" name="cep" maxlength="9" size="9" class="form-control" value="{{ endereco.cep_do_usuario }}" required>
+                    <label class="col-md-4 control-label" for="cep">CEP</label>
+                    <input data-js="cep" type="text" id="cep" placeholder="00000-000" name="cep" class="form-control" minlength="8" maxlength="10" size="10" required>
 
-                    <label for="rua" class="col-md-4 control-label">Rua</label>
-                    <input type="text" id="rua" name="rua" maxlength="64" size="64" class="form-control" value="{{ endereco.rua_do_usuario }}" required>
+                    <label class="col-md-4 control-label" for="rua">Rua</label>
+                    <input type="text" id="rua" placeholder="Rua Exemplo" name="rua" class="form-control" maxlength="64" size="64" required>
 
-                    <label for="numero" class="col-md-4 control-label">Número</label>
-                    <input type="number" id="numero" name="numero" class="form-control" value="{{ endereco.numero_da_rua }}" min="1" required>
+                    <label class="col-md-4 control-label" for="numero">Número</label>
+                    <input type="number" id="numero" placeholder="000" name="numero" class="form-control" min=1 required>
 
-                    <label for="complemento" class="col-md-4 control-label">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" maxlength="64" size="64" class="form-control" value="{{ endereco.complemento }}" required>
+                    <label class="col-md-4 control-label" for="complemento">Complemento</label>
+                    <input type="text" id="complemento" placeholder="Apto 00" name="complemento" maxlength="64" size="64" class="form-control" required>
 
             <div class="botao">
                 <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
-                <a class="btn btn-danger" href="{{ url_for('mostra_menu_usuario', usuario_id=request.args.get('usuario_id')) }}">Voltar</a>
+                <a class="btn btn-danger" href="{{ url_for('logar_usuario') }}">Voltar</a>
             </div>
 
         </form>
     </div>
-
 
 
     <script type="text/javascript" src="static/js/jquery.js"></script>

@@ -5,39 +5,27 @@ class UsuarioDAO:
     def __init__(self, db_conn):
         self._db_conn = db_conn
 
-    def retorna_dados(self):
+    def retornar_dados(self):
         usuario_dados = self._db_conn.query(Usuario).all()
         return usuario_dados
 
-    def pega_usuario_id(self, usuario_id):
-        usuario_id = self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).first()
+    def pegar_usuario_id(self, usuario_id: int) -> int:
+        usuario_id: int = self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).first()
         return usuario_id
 
-    def pega_usuario_login_email(self, usuario):
-        usuario = self._db_conn.query(Usuario).filter(Usuario.email_do_usuario == usuario).first()
+    def pegar_usuario_login_email(self, usuario: str) -> Usuario:
+        usuario: Usuario = self._db_conn.query(Usuario).filter(Usuario.email_do_usuario == usuario).first()
         return usuario
 
-    def pega_usuario_login_cpf(self, usuario):
-        usuario = self._db_conn.query(Usuario).filter(Usuario.cpf_do_usuario == usuario).first()
+    def pegar_usuario_login_cpf(self, usuario: str) -> Usuario:
+        usuario: Usuario = self._db_conn.query(Usuario).filter(Usuario.cpf_do_usuario == usuario).first()
         return usuario
 
-    def pega_usuario_login_pis(self, usuario):
-        usuario = self._db_conn.query(Usuario).filter(Usuario.pis_do_usuario == usuario).first()
+    def pegar_usuario_login_pis(self, usuario: str) -> Usuario:
+        usuario: Usuario = self._db_conn.query(Usuario).filter(Usuario.pis_do_usuario == usuario).first()
         return usuario
 
-    def pega_usuario_email(self, usuario_email):
-        usuario_email = self._db_conn.query(Usuario).filter(Usuario.email_do_usuario == usuario_email).first()
-        return usuario_email
-
-    def pega_usuario_cpf(self, usuario_cpf):
-        usuario_cpf = self._db_conn.query(Usuario).filter(Usuario.cpf_do_usuario == usuario_cpf).first()
-        return usuario_cpf
-
-    def pega_usuario_pis(self, usuario_pis):
-        usuario_pis = self._db_conn.query(Usuario).filter(Usuario.pis_do_usuario == usuario_pis).first()
-        return usuario_pis
-
-    def registra_usuario(self, usuario):
+    def registrar_usuario(self, usuario: Usuario):
         try:
             self._db_conn.add(usuario)
             self._db_conn.commit()
@@ -46,7 +34,7 @@ class UsuarioDAO:
         finally:
             self._db_conn.close()
 
-    def altera_usuario(self, usuario_id, novas_info_usuario):
+    def alterar_usuario(self, usuario_id: int, novas_info_usuario: Usuario):
         try:
             self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).update({
                 Usuario.nome_do_usuario: novas_info_usuario.nome_do_usuario,
@@ -61,6 +49,6 @@ class UsuarioDAO:
         finally:
             self._db_conn.close()
 
-    def deleta_usuario(self, usuario_id):
+    def deletar_usuario(self, usuario_id: int):
         self._db_conn.query(Usuario).filter(Usuario.id == usuario_id).delete()
         self._db_conn.commit()
