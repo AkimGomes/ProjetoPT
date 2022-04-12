@@ -12,7 +12,7 @@ class Endereco(Base):
     cep_do_usuario = Column(String(9), nullable=False)
     rua_do_usuario = Column(String(64), nullable=False)
     numero_da_rua = Column(Integer, nullable=False)
-    complemento = Column(String(64), nullable=False)
+    complemento = Column(String(64), nullable=True)
 
     def __init__(self, fk_id_usuario, pais_do_usuario, estado_do_usuario, municipio_do_usuario, cep_do_usuario, rua_do_usuario,
                  numero_da_rua, complemento):
