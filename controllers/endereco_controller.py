@@ -1,35 +1,37 @@
+from flask import Request
+
 from models.endereco import Endereco
 from controllers import endereco_dao
 
 
-def registra_endereco_no_sistema(request, usuario_id):
+def registrar_endereco_no_sistema(requisicao: Request, usuario_id: int):
     endereco = Endereco(usuario_id,
-                        request.form['pais'],
-                        request.form['estado'],
-                        request.form['municipio'],
-                        request.form['cep'],
-                        request.form['rua'],
-                        request.form['numero'],
-                        request.form['complemento'])
-    endereco_dao.registra_endereco(endereco)
+                        requisicao.form['pais'],
+                        requisicao.form['estado'],
+                        requisicao.form['municipio'],
+                        requisicao.form['cep'],
+                        requisicao.form['rua'],
+                        requisicao.form['numero'],
+                        requisicao.form['complemento'])
+    endereco_dao.registrar_endereco(endereco)
 
 
-def pegar_endereco_por_id_do_usuario(request):
-    endereco = endereco_dao.pega_endereco_por_id_usuario(request.args.get('usuario_id'))
+def pegar_endereco_por_id_do_usuario(requisicao: Request):
+    endereco: Endereco = endereco_dao.pegar_endereco_por_id_usuario(requisicao.args.get('usuario_id'))
     return endereco
 
 
-def aplica_edicoes_de_info_do_endereco(request, usuario_id):
+def aplicar_edicoes_de_info_do_endereco(requisicao: Request, usuario_id: int):
     endereco = Endereco(usuario_id,
-                        request.form['pais'],
-                        request.form['estado'],
-                        request.form['municipio'],
-                        request.form['cep'],
-                        request.form['rua'],
-                        request.form['numero'],
-                        request.form['complemento'])
-    endereco_dao.altera_endereco(request.args.get('endereco_id'), endereco)
+                        requisicao.form['pais'],
+                        requisicao.form['estado'],
+                        requisicao.form['municipio'],
+                        requisicao.form['cep'],
+                        requisicao.form['rua'],
+                        requisicao.form['numero'],
+                        requisicao.form['complemento'])
+    endereco_dao.alterar_endereco(requisicao.args.get('endereco_id'), endereco)
 
 
-def deleta_endereco_por_id(request):
-    endereco_dao.deleta_endereco(request.args.get('usuario_id'))
+def deletar_endereco_por_id(requisicao: Request):
+    endereco_dao.deletar_endereco(requisicao.args.get('usuario_id'))

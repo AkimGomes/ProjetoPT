@@ -5,11 +5,11 @@ class EnderecoDAO:
     def __init__(self, db_conn):
         self._db_conn = db_conn
 
-    def pega_endereco_por_id_usuario(self, usuario_id):
+    def pegar_endereco_por_id_usuario(self, usuario_id):
         endereco = self._db_conn.query(Endereco).filter(Endereco.fk_id_usuario == usuario_id).first()
         return endereco
 
-    def registra_endereco(self, endereco):
+    def registrar_endereco(self, endereco):
         try:
             self._db_conn.add(endereco)
             self._db_conn.commit()
@@ -18,7 +18,7 @@ class EnderecoDAO:
         finally:
             self._db_conn.close()
 
-    def altera_endereco(self, endereco_id, novas_info_endereco):
+    def alterar_endereco(self, endereco_id, novas_info_endereco):
         try:
             self._db_conn.query(Endereco).filter(Endereco.endereco_id == endereco_id).update({
                 Endereco.pais_do_usuario: novas_info_endereco.pais_do_usuario,
@@ -35,6 +35,6 @@ class EnderecoDAO:
         finally:
             self._db_conn.close()
 
-    def deleta_endereco(self, endereco_id):
+    def deletar_endereco(self, endereco_id):
         self._db_conn.query(Endereco).filter(Endereco.endereco_id == endereco_id).delete()
         self._db_conn.commit()

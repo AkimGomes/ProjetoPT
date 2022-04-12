@@ -17,7 +17,7 @@
 
                 <a class="nav-link disabled" href="#">Olá, {{ current_user.nome_do_usuario }}</a>
 
-                <form class="navbar-form navbar-right" action="{{ url_for('desloga_usuario') }}">
+                <form class="navbar-form navbar-right" action="{{ url_for('deslogar_usuario') }}">
                     <button type="submit" class="btn btn-success">Sair</button>
                 </form>
 
@@ -47,7 +47,7 @@
                 {% endif %}
         {% endwith %}
 
-        <form action="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}" method="get" enctype="multipart/form-data">
+        <form  method="get">
                 <h1>Informações</h1>
                     <label for="nome" class="col-md-4 control-label">Nome</label>
                     <input id="nome" class="form-control" value="{{ current_user.nome_do_usuario }}" readonly>
@@ -84,8 +84,8 @@
 
 
             <div class="botao">
-                <a class="btn btn-primary" href="{{ url_for('edita_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
-                <a class="btn btn-danger" href="{{ url_for('deleta_usuario', usuario_id=current_user.id) }}">Excluir usuário</a>
+                <a class="btn btn-primary" href="{{ url_for('editar_info_do_usuario', usuario_id=current_user.id) }}">Editar Informações</a>
+                <a class="btn btn-danger" href="{{ url_for('deletar_usuario', usuario_id=current_user.id) }}">Excluir usuário</a>
             </div>
         </form>
     </div>

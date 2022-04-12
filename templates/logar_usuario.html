@@ -43,11 +43,11 @@
 
     <div class="container">
         <h1>Faça seu login</h1>
-        <form method="post" action="{{ url_for('loga_usuario') }}">
+        <form method="post" action="{{ url_for('logar_usuario') }}">
             <p><label>Usúario:</label><input class="form-control" placeholder="CPF, PIS ou E-mail" type="login" name="login" required></p>
             <p><label>Senha:</label><input class="form-control" placeholder="Senha" type="password" name="password" required></p>
             <button type="submit" class="btn btn-primary btn-salvar">Entrar</button>
-            <a class="btn btn-success" href="{{ url_for('registra_usuario') }}">Cadastrar</a>
+            <a class="btn btn-success" href="{{ url_for('registrar_usuario') }}">Cadastrar</a>
         </form>
     </div>
 
